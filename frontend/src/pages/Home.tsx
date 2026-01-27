@@ -1,4 +1,4 @@
-import { Card, Col, Row, Statistic, Typography, Space } from "antd";
+import { Card, Col, Row, Statistic, Typography } from "antd";
 import {
   ShoppingOutlined,
   UserOutlined,
@@ -34,7 +34,7 @@ const data = [
 export default function HomePage() {
   const { productsQuery } = useProducts();
   const totalProducts = productsQuery.data?.length || 0;
-  const totalStock = productsQuery.data?.reduce((acc, p) => acc + p.stockQuantity, 0) || 0;
+  const totalStock = productsQuery.data?.reduce((acc, p) => acc + p.stock_quantity, 0) || 0;
 
   return (
     <div className="py-8 space-y-8">
@@ -45,7 +45,7 @@ export default function HomePage() {
 
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} className="shadow-sm hover:shadow-md transition-shadow transition-all duration-300">
+          <Card bordered={false} className="shadow-sm hover:shadow-md transition-all duration-300">
             <Statistic
               title={<span className="text-slate-500 font-medium">Total Products</span>}
               value={totalProducts}
@@ -97,7 +97,7 @@ export default function HomePage() {
 
       <Row gutter={[24, 24]}>
         <Col xs={24} lg={16}>
-          <Card title="Sales analytics" bordered={false} className="shadow-sm h-[450px]">
+          <Card title="Sales analytics" bordered={false} className="shadow-sm h-112.5">
             <ResponsiveContainer width="100%" height={350}>
               <AreaChart data={data}>
                 <defs>
@@ -118,7 +118,7 @@ export default function HomePage() {
           </Card>
         </Col>
         <Col xs={24} lg={8}>
-          <Card title="Inventory distribution" bordered={false} className="shadow-sm h-[450px]">
+          <Card title="Inventory distribution" bordered={false} className="shadow-sm h-112.5">
             <ResponsiveContainer width="100%" height={350}>
               <BarChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />

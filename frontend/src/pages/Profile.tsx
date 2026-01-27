@@ -41,7 +41,7 @@ export default function ProfilePage() {
         bordered={false}
         className="w-full max-w-2xl shadow-2xl rounded-3xl overflow-hidden bg-white/40 backdrop-blur-xl border border-white/20"
       >
-        <div className="relative h-32 bg-gradient-to-r from-blue-600 to-indigo-600 -mx-6 -mt-6 mb-16">
+        <div className="relative h-32 bg-linear-to-r from-blue-600 to-indigo-600 -mx-6 -mt-6 mb-16">
           <div className="absolute -bottom-12 left-8 p-1 bg-white rounded-full shadow-lg">
             <Avatar
               size={100}

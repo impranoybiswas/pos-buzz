@@ -13,19 +13,21 @@ export const createProductApi = async (
     name: data.name,
     sku: data.sku,
     price: data.price,
-    stock_quantity: data.stockQuantity,
+    stock_quantity: data.stock_quantity,
   });
   return res.data;
 };
+
+
 
 export const updateProductApi = async (
   id: string,
   data: Partial<Omit<Product, "id">>,
 ): Promise<Product> => {
-  const payload: any = { ...data };
-  if (data.stockQuantity !== undefined) {
-    payload.stock_quantity = data.stockQuantity;
-    delete payload.stockQuantity;
+  const payload: Partial<Omit<Product, "id">> = { ...data };
+  if (data.stock_quantity !== undefined) {
+    payload.stock_quantity = data.stock_quantity;
+    delete payload.stock_quantity;
   }
   const res = await api.patch<Product>(`/products/${id}`, payload);
   return res.data;

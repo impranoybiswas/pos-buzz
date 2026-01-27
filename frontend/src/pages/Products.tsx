@@ -48,7 +48,7 @@ export default function ProductsPage() {
         deleteMutation.mutate(id);
     };
 
-    const onFinish = (values: any) => {
+    const onFinish = (values: Product) => {
         if (editingProduct) {
             updateMutation.mutate(
                 { id: editingProduct.id, data: values },
@@ -68,7 +68,7 @@ export default function ProductsPage() {
         {
             title: "PRODUCT",
             key: "product",
-            render: (_: any, record: Product) => (
+            render: (_: unknown, record: Product) => (
                 <div className="flex flex-col">
                     <Text strong className="text-slate-700">{record.name}</Text>
                     <Text type="secondary" className="text-xs uppercase tracking-wider">{record.sku}</Text>
@@ -93,13 +93,13 @@ export default function ProductsPage() {
                     {stock} units
                 </Tag>
             ),
-            sorter: (a: Product, b: Product) => a.stockQuantity - b.stockQuantity,
+            sorter: (a: Product, b: Product) => a.stock_quantity - b.stock_quantity,
         },
         {
             title: "ACTIONS",
             key: "actions",
             align: "right" as const,
-            render: (_: any, record: Product) => (
+            render: (_: unknown, record: Product) => (
                 <Space size="small">
                     <AntTooltip title="Edit Product">
                         <Button
