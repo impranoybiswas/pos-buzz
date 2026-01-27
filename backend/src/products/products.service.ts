@@ -5,22 +5,56 @@ import { PrismaService } from '../prisma/prisma.service';
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: Record<string, any>) {
-    return this.prisma.product.create({ data: data as any });
-  }
-
-  findAll() {
-    return this.prisma.product.findMany();
-  }
-
-  update(id: string, data: Record<string, any>) {
-    return this.prisma.product.update({
-      where: { id: id as any },
-      data: data as any,
+  async create(data: {
+    name: string;
+    sku: string;
+    price: number;
+    stock_quantity: number;
+  }) {
+    return this.prisma.product.create({
+      data: {
+        name: data.name,
+        sku: data.sku,
+        price: data.price,
+        stockQuantity: data.stock_quantity,
+      },
     });
   }
 
-  delete(id: string) {
-    return this.prisma.product.delete({ where: { id: id as any } });
+  async findAll() {
+    return this.prisma.product.findMany();
+  }
+
+  async findOne(id: string) {
+    return this.prisma.product.findUnique({
+      where: { id },
+    });
+  }
+
+  async update(
+    id: string,
+    data: {
+      name?: string;
+      sku?: string;
+      price?: number;
+      stock_quantity?: number;
+    },
+  ) {
+    const updateData: any = { ...data };
+    if (data.stock_quantity !== undefined) {
+      updateData.stockQuantity = data.stock_quantity;
+      delete updateData.stock_quantity;
+    }
+
+    return this.prisma.product.update({
+      where: { id },
+      data: updateData,
+    });
+  }
+
+  async remove(id: string) {
+    return this.prisma.product.delete({
+      where: { id },
+    });
   }
 }

@@ -2,15 +2,20 @@ import { PrismaService } from '../prisma/prisma.service';
 export declare class ProductsService {
     private prisma;
     constructor(prisma: PrismaService);
-    create(data: Record<string, any>): import("@prisma/client").Prisma.Prisma__ProductClient<{
+    create(data: {
+        name: string;
+        sku: string;
+        price: number;
+        stock_quantity: number;
+    }): Promise<{
         id: string;
         createdAt: Date;
         name: string;
         sku: string;
         price: number;
         stockQuantity: number;
-    }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
-    findAll(): import("@prisma/client").Prisma.PrismaPromise<{
+    }>;
+    findAll(): Promise<{
         id: string;
         createdAt: Date;
         name: string;
@@ -18,20 +23,33 @@ export declare class ProductsService {
         price: number;
         stockQuantity: number;
     }[]>;
-    update(id: string, data: Record<string, any>): import("@prisma/client").Prisma.Prisma__ProductClient<{
+    findOne(id: string): Promise<{
         id: string;
         createdAt: Date;
         name: string;
         sku: string;
         price: number;
         stockQuantity: number;
-    }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
-    delete(id: string): import("@prisma/client").Prisma.Prisma__ProductClient<{
+    } | null>;
+    update(id: string, data: {
+        name?: string;
+        sku?: string;
+        price?: number;
+        stock_quantity?: number;
+    }): Promise<{
         id: string;
         createdAt: Date;
         name: string;
         sku: string;
         price: number;
         stockQuantity: number;
-    }, never, import("@prisma/client/runtime/library").DefaultArgs, import("@prisma/client").Prisma.PrismaClientOptions>;
+    }>;
+    remove(id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        name: string;
+        sku: string;
+        price: number;
+        stockQuantity: number;
+    }>;
 }

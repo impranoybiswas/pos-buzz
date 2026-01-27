@@ -17,20 +17,39 @@ let ProductsService = class ProductsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    create(data) {
-        return this.prisma.product.create({ data: data });
-    }
-    findAll() {
-        return this.prisma.product.findMany();
-    }
-    update(id, data) {
-        return this.prisma.product.update({
-            where: { id: id },
-            data: data,
+    async create(data) {
+        return this.prisma.product.create({
+            data: {
+                name: data.name,
+                sku: data.sku,
+                price: data.price,
+                stockQuantity: data.stock_quantity,
+            },
         });
     }
-    delete(id) {
-        return this.prisma.product.delete({ where: { id: id } });
+    async findAll() {
+        return this.prisma.product.findMany();
+    }
+    async findOne(id) {
+        return this.prisma.product.findUnique({
+            where: { id },
+        });
+    }
+    async update(id, data) {
+        const updateData = { ...data };
+        if (data.stock_quantity !== undefined) {
+            updateData.stockQuantity = data.stock_quantity;
+            delete updateData.stock_quantity;
+        }
+        return this.prisma.product.update({
+            where: { id },
+            data: updateData,
+        });
+    }
+    async remove(id) {
+        return this.prisma.product.delete({
+            where: { id },
+        });
     }
 };
 exports.ProductsService = ProductsService;

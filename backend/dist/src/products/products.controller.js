@@ -27,11 +27,14 @@ let ProductsController = class ProductsController {
     findAll() {
         return this.service.findAll();
     }
+    findOne(id) {
+        return this.service.findOne(id);
+    }
     update(id, body) {
         return this.service.update(id, body);
     }
-    delete(id) {
-        return this.service.delete(id);
+    remove(id) {
+        return this.service.remove(id);
     }
 };
 exports.ProductsController = ProductsController;
@@ -49,6 +52,13 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "findAll", null);
 __decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ProductsController.prototype, "findOne", null);
+__decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -62,7 +72,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], ProductsController.prototype, "delete", null);
+], ProductsController.prototype, "remove", null);
 exports.ProductsController = ProductsController = __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Controller)('products'),

@@ -7,30 +7,30 @@ import ProfilePage from "../pages/Profile";
 import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
-    {
+  {
+    path: "/",
+    Component: App,
+    children: [
+      {
         path: "/",
-        Component: App,
-        children: [
-            {
-                path: "/",
-                Component: HomePage,
-            },
-            {
-                path: "/login",
-                Component: LoginPage,
-            },
-            {
-                path: "/register",
-                Component: RegisterPage,
-            },
-            {
-                path: "/profile",
-                element: (
-                    <PrivateRoute>
-                        <ProfilePage />
-                    </PrivateRoute>
-                ),
-            },
-        ],
-    },
+        Component: HomePage,
+      },
+      {
+        path: "/login",
+        Component: LoginPage,
+      },
+      {
+        path: "/register",
+        Component: RegisterPage,
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <ProfilePage />
+          </PrivateRoute>
+        ),
+      },
+    ],
+  },
 ]);

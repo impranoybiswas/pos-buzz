@@ -17,7 +17,15 @@ export class ProductsController {
   constructor(private service: ProductsService) {}
 
   @Post()
-  create(@Body() body: Record<string, any>) {
+  create(
+    @Body()
+    body: {
+      name: string;
+      sku: string;
+      price: number;
+      stock_quantity: number;
+    },
+  ) {
     return this.service.create(body);
   }
 
@@ -26,13 +34,27 @@ export class ProductsController {
     return this.service.findAll();
   }
 
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.service.findOne(id);
+  }
+
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: Record<string, any>) {
+  update(
+    @Param('id') id: string,
+    @Body()
+    body: {
+      name?: string;
+      sku?: string;
+      price?: number;
+      stock_quantity?: number;
+    },
+  ) {
     return this.service.update(id, body);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
-    return this.service.delete(id);
+  remove(@Param('id') id: string) {
+    return this.service.remove(id);
   }
 }

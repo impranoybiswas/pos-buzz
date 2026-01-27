@@ -11,6 +11,12 @@ export interface Auth {
   password: string;
 }
 
+export interface User {
+  userId: string;
+  email: string;
+  name: string;
+}
+
 export interface LoginResponse {
   access_token: string;
 }

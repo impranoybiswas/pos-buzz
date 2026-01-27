@@ -12,7 +12,7 @@ export default function LoginPage() {
 
   const onFinish = async (values: Auth) => {
     try {
-      const response = await axios.post("http://localhost:3000/auth/login", values);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, values);
       const { access_token } = response.data;
 
       localStorage.setItem("token", access_token);
@@ -23,9 +23,9 @@ export default function LoginPage() {
       });
 
       setTimeout(() => navigate("/"), 1500);
-    } catch (error: any) {
+    } catch (error) {
       messageApi.error({
-        content: error.response?.data?.message || "Login Failed",
+        content: error?.response.data.message || "Login Failed",
         duration: 3,
       });
     }
