@@ -3,10 +3,9 @@ export declare class SalesService {
     private prisma;
     constructor(prisma: PrismaService);
     createSale(productId: string, quantity: number): Promise<{
-        id: number;
+        id: string;
         createdAt: Date;
         quantity: number;
-        total: number;
-        productId: number;
+        productId: string;
     }>;
 }

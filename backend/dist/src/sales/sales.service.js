@@ -32,7 +32,7 @@ let SalesService = class SalesService {
             data: {
                 productId: productId,
                 quantity,
-                total: product.price * quantity,
+                total: (product.price * quantity),
             },
         });
     }

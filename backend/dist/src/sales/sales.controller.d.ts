@@ -6,10 +6,9 @@ export declare class SalesController {
         productId: string;
         quantity: number;
     }): Promise<{
-        id: number;
+        id: string;
         createdAt: Date;
         quantity: number;
-        total: number;
-        productId: number;
+        productId: string;
     }>;
 }

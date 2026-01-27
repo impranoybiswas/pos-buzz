@@ -1,5 +1,6 @@
 import { Button, Card, Form, Input, message, Typography } from "antd";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import axios from "axios";
 
 import type { Auth } from "../types";
 
@@ -7,16 +8,27 @@ const { Title, Text } = Typography;
 
 export default function LoginPage() {
   const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
 
+  const onFinish = async (values: Auth) => {
+    try {
+      const response = await axios.post("http://localhost:3000/auth/login", values);
+      const { access_token } = response.data;
 
-  const onFinish = (values: Auth) => {
-    console.log("Login Success:", values);
-    messageApi.success({
-      content: `Login Attempt: ${values.email}`,
-      duration: 3,
-    });
-    // In a real app, we would perform login here and navigate
-    // setTimeout(() => navigate("/"), 2000);
+      localStorage.setItem("token", access_token);
+
+      messageApi.success({
+        content: "Login Successful!",
+        duration: 2,
+      });
+
+      setTimeout(() => navigate("/"), 1500);
+    } catch (error: any) {
+      messageApi.error({
+        content: error.response?.data?.message || "Login Failed",
+        duration: 3,
+      });
+    }
   };
 
   return (

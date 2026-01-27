@@ -3,6 +3,8 @@ import App from "../App";
 import HomePage from "../pages/Home";
 import LoginPage from "../auth/Login";
 import RegisterPage from "../auth/Register";
+import ProfilePage from "../pages/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +22,14 @@ export const router = createBrowserRouter([
             {
                 path: "/register",
                 Component: RegisterPage,
+            },
+            {
+                path: "/profile",
+                element: (
+                    <PrivateRoute>
+                        <ProfilePage />
+                    </PrivateRoute>
+                ),
             },
         ],
     },

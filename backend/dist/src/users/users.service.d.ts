@@ -3,13 +3,13 @@ export declare class UsersService {
     private prisma;
     constructor(prisma: PrismaService);
     findByEmail(email: string): Promise<{
-        id: number;
+        id: string;
         email: string;
         password: string;
         createdAt: Date;
     } | null>;
     createUser(email: string, password: string): Promise<{
-        id: number;
+        id: string;
         email: string;
         password: string;
         createdAt: Date;

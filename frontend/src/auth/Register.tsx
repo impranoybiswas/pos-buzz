@@ -1,19 +1,33 @@
 import { Button, Card, Form, Input, message, Typography } from "antd";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import axios from "axios";
 import type { RegisterData } from "../types";
 
 const { Title, Text } = Typography;
 
 export default function RegisterPage() {
   const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
 
-  const onFinish = (values: RegisterData) => {
-    console.log("Register Success:", values);
+  const onFinish = async (values: RegisterData) => {
+    try {
+      await axios.post("http://localhost:3000/auth/register", {
+        email: values.email,
+        password: values.password,
+      });
 
-    messageApi.success({
-      content: `Registered: ${values.name} (${values.email})`,
-      duration: 3,
-    });
+      messageApi.success({
+        content: "Registration Successful! Please login.",
+        duration: 3,
+      });
+
+      setTimeout(() => navigate("/login"), 2000);
+    } catch (error: any) {
+      messageApi.error({
+        content: error.response?.data?.message || "Registration Failed",
+        duration: 3,
+      });
+    }
   };
 
   return (
