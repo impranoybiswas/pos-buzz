@@ -1,16 +1,18 @@
 import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "./global.css";
-import App from "./App.tsx";
+import ReactDOM from "react-dom/client";
+import "./global.css"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { RouterProvider } from "react-router";
+import { router } from "./routes/Routes";
+import "antd/dist/reset.css";
 
-/**
- * The entry point for the React application.
- * It mounts the App component into the root DOM element.
- */
-createRoot(document.getElementById("root")!).render(
-  // StrictMode helps identify potential problems in the application during development
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    {/* The main App component containing routing and providers */}
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </StrictMode>
 );
+
