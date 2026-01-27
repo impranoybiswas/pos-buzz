@@ -19,6 +19,7 @@ model Product {
   name          String
   sku           String   @unique
   price         Float
+  sales         Sale[]
   stockQuantity Int
   createdAt     DateTime @default(now())
 }
