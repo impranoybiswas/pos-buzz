@@ -13,9 +13,16 @@ import type { RegisterData } from "../types";
 
 const { Title, Text } = Typography;
 
+/**
+ * RegisterPage component for new user onboarding.
+ * Handles account creation form and navigates to login on success.
+ */
 export default function RegisterPage() {
   const navigate = useNavigate();
 
+  /**
+   * Processes the registration request via backend API.
+   */
   const onFinish = async (values: RegisterData) => {
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, values);
@@ -28,7 +35,7 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2 bg-white">
-      {/* Left Decoration */}
+      {/* Visual Branding Section */}
       <div className="hidden lg:flex flex-col justify-center items-center bg-blue-600 p-12 text-white relative overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-700" />
@@ -44,7 +51,7 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      {/* Right Form */}
+      {/* Registration Form Area */}
       <div className="flex items-center justify-center p-8 bg-slate-50 lg:bg-white">
         <Card bordered={false} className="w-full max-w-md shadow-2xl lg:shadow-none bg-transparent">
           <div className="mb-10 text-center lg:text-left">
@@ -108,6 +115,7 @@ export default function RegisterPage() {
               Register Now
             </Button>
 
+            {/* Back to Login link */}
             <div className="text-center mt-8">
               <Space>
                 <Text type="secondary">Already have an account?</Text>

@@ -1,11 +1,20 @@
 import api from "./axios";
 import type { Product } from "../types";
 
+/**
+ * Fetches the list of all products from the backend.
+ * @returns A promise resolving to an array of Product objects.
+ */
 export const getProductsApi = async (): Promise<Product[]> => {
   const res = await api.get<Product[]>("/products");
   return res.data;
 };
 
+/**
+ * Creates a new product entry in the database.
+ * Maps stock_quantity to match backend schema expectations.
+ * @param data Product details excluding ID.
+ */
 export const createProductApi = async (
   data: Omit<Product, "id">,
 ): Promise<Product> => {
@@ -18,21 +27,32 @@ export const createProductApi = async (
   return res.data;
 };
 
-
-
+/**
+ * Updates an existing product's information.
+ * Handles mapping of CamelCase UI fields to SnakeCase backend fields.
+ * @param id The UUID of the product to update.
+ * @param data Partial product information.
+ */
 export const updateProductApi = async (
   id: string,
   data: Partial<Omit<Product, "id">>,
 ): Promise<Product> => {
   const payload: Partial<Omit<Product, "id">> = { ...data };
+
+  // Ensure stock field is mapped correctly for the backend if provided
   if (data.stock_quantity !== undefined) {
     payload.stock_quantity = data.stock_quantity;
     delete payload.stock_quantity;
   }
+
   const res = await api.patch<Product>(`/products/${id}`, payload);
   return res.data;
 };
 
+/**
+ * Deletes a product by its unique identifier.
+ * @param id The UUID of the product.
+ */
 export const deleteProductApi = async (id: string): Promise<void> => {
   await api.delete(`/products/${id}`);
 };

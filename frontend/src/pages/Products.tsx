@@ -25,6 +25,10 @@ import type { Product } from "../types";
 
 const { Title, Text } = Typography;
 
+/**
+ * Product Management page for inventory tracking.
+ * Features: Product listing, Search filtering, CRUD operations via modals.
+ */
 export default function ProductsPage() {
     const { productsQuery, createMutation, updateMutation, deleteMutation } = useProducts();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,22 +36,34 @@ export default function ProductsPage() {
     const [searchText, setSearchText] = useState("");
     const [form] = Form.useForm();
 
+    /**
+     * Resets form and opens modal for adding a new product.
+     */
     const handleAdd = () => {
         setEditingProduct(null);
         form.resetFields();
         setIsModalOpen(true);
     };
 
+    /**
+     * Initializes form with product data and opens modal for editing.
+     */
     const handleEdit = (product: Product) => {
         setEditingProduct(product);
         form.setFieldsValue(product);
         setIsModalOpen(true);
     };
 
+    /**
+     * Triggers the delete mutation for a specific product.
+     */
     const handleDelete = (id: string) => {
         deleteMutation.mutate(id);
     };
 
+    /**
+     * Form submission handler for both Create and Update operations.
+     */
     const onFinish = (values: Product) => {
         if (editingProduct) {
             updateMutation.mutate(
@@ -59,11 +75,17 @@ export default function ProductsPage() {
         }
     };
 
+    /**
+     * Local filtering logic based on user search input.
+     */
     const filteredData = productsQuery.data?.filter(p =>
         p.name.toLowerCase().includes(searchText.toLowerCase()) ||
         p.sku.toLowerCase().includes(searchText.toLowerCase())
     );
 
+    /**
+     * Ant Design Table column definitions.
+     */
     const columns = [
         {
             title: "PRODUCT",
@@ -86,8 +108,8 @@ export default function ProductsPage() {
         },
         {
             title: "STOCK",
-            dataIndex: "stockQuantity",
-            key: "stockQuantity",
+            dataIndex: "stock_quantity",
+            key: "stock_quantity",
             render: (stock: number) => (
                 <Tag color={stock < 10 ? "red" : stock < 50 ? "orange" : "blue"} className="rounded-full px-3">
                     {stock} units
@@ -128,6 +150,7 @@ export default function ProductsPage() {
 
     return (
         <div className="py-8 space-y-6">
+            {/* Action Bar */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <Title level={2} className="m-0">Product Inventory</Title>
@@ -147,6 +170,7 @@ export default function ProductsPage() {
                 </div>
             </div>
 
+            {/* List & Search Container */}
             <Card bordered={false} className="shadow-sm">
                 <div className="mb-6 max-w-md">
                     <Input
@@ -172,6 +196,7 @@ export default function ProductsPage() {
                 />
             </Card>
 
+            {/* Product Upsert Modal */}
             <Modal
                 title={
                     <div className="pb-4 border-b">
@@ -189,7 +214,7 @@ export default function ProductsPage() {
                     form={form}
                     layout="vertical"
                     onFinish={onFinish}
-                    initialValues={{ price: 0, stockQuantity: 0 }}
+                    initialValues={{ price: 0, stock_quantity: 0 }}
                     className="pt-6"
                     requiredMark={false}
                 >
@@ -225,7 +250,7 @@ export default function ProductsPage() {
                         </Form.Item>
 
                         <Form.Item
-                            name="stockQuantity"
+                            name="stock_quantity"
                             label={<Text className="font-medium text-slate-600">Initial Stock</Text>}
                             rules={[{ required: true, message: "Please enter stock quantity" }]}
                         >

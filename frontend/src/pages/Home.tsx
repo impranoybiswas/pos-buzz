@@ -21,6 +21,10 @@ import { useProducts } from "../hooks/useProducts";
 
 const { Title, Text } = Typography;
 
+/**
+ * Mock data for sales and inventory charts.
+ * In a production env, this would be fetched from the backend.
+ */
 const data = [
   { name: "Mon", sales: 4000, stock: 2400 },
   { name: "Tue", sales: 3000, stock: 1398 },
@@ -31,6 +35,10 @@ const data = [
   { name: "Sun", sales: 3490, stock: 4300 },
 ];
 
+/**
+ * Dashboard Home page providing a high-level overview of business metrics.
+ * Displays key statistics and performance charts using recharts and Ant Design.
+ */
 export default function HomePage() {
   const { productsQuery } = useProducts();
   const totalProducts = productsQuery.data?.length || 0;
@@ -38,11 +46,13 @@ export default function HomePage() {
 
   return (
     <div className="py-8 space-y-8">
+      {/* Page Header */}
       <div className="flex flex-col gap-1">
         <Title level={2} className="m-0">Business Intelligence</Title>
         <Text type="secondary">Real-time overview of your store performance and inventory.</Text>
       </div>
 
+      {/* Statistical Summary Row */}
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={12} lg={6}>
           <Card bordered={false} className="shadow-sm hover:shadow-md transition-all duration-300">
@@ -72,7 +82,7 @@ export default function HomePage() {
           <Card bordered={false} className="shadow-sm hover:shadow-md transition-shadow">
             <Statistic
               title={<span className="text-slate-500 font-medium">Gross Revenue</span>}
-              value={totalProducts * 1250.50} // Mock calc
+              value={totalProducts * 1250.50} // Simulated revenue based on inventory
               prefix={<div className="p-2 bg-emerald-50 rounded-lg mr-2"><LineChartOutlined className="text-emerald-600" /></div>}
               precision={2}
             />
@@ -95,9 +105,10 @@ export default function HomePage() {
         </Col>
       </Row>
 
+      {/* Analytics Row */}
       <Row gutter={[24, 24]}>
         <Col xs={24} lg={16}>
-          <Card title="Sales analytics" bordered={false} className="shadow-sm h-112.5">
+          <Card title="Sales Analytics" bordered={false} className="shadow-sm h-112.5">
             <ResponsiveContainer width="100%" height={350}>
               <AreaChart data={data}>
                 <defs>
@@ -118,7 +129,7 @@ export default function HomePage() {
           </Card>
         </Col>
         <Col xs={24} lg={8}>
-          <Card title="Inventory distribution" bordered={false} className="shadow-sm h-112.5">
+          <Card title="Inventory Distribution" bordered={false} className="shadow-sm h-112.5">
             <ResponsiveContainer width="100%" height={350}>
               <BarChart data={data}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />

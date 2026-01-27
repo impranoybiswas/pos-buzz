@@ -1,20 +1,33 @@
-import { Menu, Button, Space } from "antd";
+import { useState } from "react";
+import { Menu, Button, Space, Drawer } from "antd";
 import { Link, useLocation } from "react-router";
 import {
     HomeOutlined,
     ShoppingCartOutlined,
     UserOutlined,
     LogoutOutlined,
+    MenuOutlined,
 } from "@ant-design/icons";
 
+/**
+ * Navbar component providing navigation links and user account actions.
+ * Supports desktop horizontal layout and mobile drawer-based navigation.
+ */
 export default function Navbar() {
     const location = useLocation();
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+    /**
+     * Handles user logout by clearing the authentication token and redirecting.
+     */
     const handleLogout = () => {
         localStorage.removeItem("token");
         window.location.href = "/login";
     };
 
+    /**
+     * Configuration for navigation menu items shared between desktop and mobile.
+     */
     const menuItems = [
         {
             key: "/",
@@ -37,27 +50,28 @@ export default function Navbar() {
         <header className="sticky top-0 z-50 w-full glass-card border-b border-slate-200">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
+
+                    {/* Logo Section */}
                     <div className="flex items-center gap-8">
                         <Link to="/" className="flex items-center gap-2 group">
-                            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                                <ShoppingCartOutlined className="text-white text-xl" />
-                            </div>
-                            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+                            <span className="text-xl font-bold bg-clip-text text-transparent bg-linear-to-r from-blue-600 to-indigo-600">
                                 POS Buzz
                             </span>
                         </Link>
 
+                        {/* Desktop Navigation */}
                         <nav className="hidden md:block">
                             <Menu
                                 mode="horizontal"
                                 selectedKeys={[location.pathname]}
                                 items={menuItems}
-                                className="bg-transparent border-none min-w-[300px]"
+                                className="bg-transparent border-none min-w-75"
                             />
                         </nav>
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    {/* Desktop Right Actions */}
+                    <div className="hidden md:flex items-center gap-4">
                         <Space>
                             <Button
                                 type="text"
@@ -70,8 +84,48 @@ export default function Navbar() {
                             </Button>
                         </Space>
                     </div>
+
+                    {/* Mobile Menu Toggle */}
+                    <div className="md:hidden flex items-center">
+                        <Button
+                            type="text"
+                            icon={<MenuOutlined />}
+                            onClick={() => setMobileMenuOpen(true)}
+                            size="large"
+                        />
+                    </div>
+
                 </div>
             </div>
+
+            {/* Mobile Sidebar (Drawer) */}
+            <Drawer
+                title="Menu"
+                placement="right"
+                onClose={() => setMobileMenuOpen(false)}
+                open={mobileMenuOpen}
+                styles={{ body: { padding: 0 } }}
+            >
+                <Menu
+                    mode="inline"
+                    selectedKeys={[location.pathname]}
+                    items={menuItems}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="border-none"
+                />
+                <div className="p-4 border-t border-slate-100">
+                    <Button
+                        danger
+                        block
+                        type="primary"
+                        icon={<LogoutOutlined />}
+                        onClick={handleLogout}
+                        className="h-11 rounded-xl"
+                    >
+                        Logout
+                    </Button>
+                </div>
+            </Drawer>
         </header>
     );
 }

@@ -9,14 +9,25 @@ import toast from "react-hot-toast";
 import { AxiosError } from "axios";
 import type { Product } from "../types";
 
+/**
+ * Custom hook providing TanStack Query integration for Product CRUD operations.
+ * Handles state, automatic cache invalidation, and toast notifications.
+ */
 export const useProducts = () => {
   const queryClient = useQueryClient();
 
+  /**
+   * Query for fetching all products.
+   */
   const productsQuery = useQuery({
     queryKey: ["products"],
     queryFn: getProductsApi,
   });
 
+  /**
+   * Mutation for creating a new product.
+   * Invalidates 'products' query on success to trigger a refetch.
+   */
   const createMutation = useMutation({
     mutationFn: createProductApi,
     onSuccess: () => {
@@ -34,6 +45,10 @@ export const useProducts = () => {
     },
   });
 
+  /**
+   * Mutation for updating an existing product.
+   * Requires product ID and updated data payload.
+   */
   const updateMutation = useMutation({
     mutationFn: ({ id, data }: { id: string; data: Product }) =>
       updateProductApi(id, data),
@@ -52,6 +67,9 @@ export const useProducts = () => {
     },
   });
 
+  /**
+   * Mutation for deleting a product.
+   */
   const deleteMutation = useMutation({
     mutationFn: deleteProductApi,
     onSuccess: () => {

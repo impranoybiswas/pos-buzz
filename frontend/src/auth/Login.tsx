@@ -8,9 +8,17 @@ import type { Auth } from "../types";
 
 const { Title, Text } = Typography;
 
+/**
+ * LoginPage component for user authentication.
+ * Manages login form state, performs API requests, and handles token storage.
+ */
 export default function LoginPage() {
   const navigate = useNavigate();
 
+  /**
+   * Handles form submission for user login.
+   * Stores the returned access token in local storage on success.
+   */
   const onFinish = async (values: Auth) => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, values);
@@ -26,7 +34,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2 bg-white">
-      {/* Left Decoration */}
+      {/* Decorative branding panel (Visible on Desktop) */}
       <div className="hidden lg:flex flex-col justify-center items-center bg-blue-600 p-12 text-white relative overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-white/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-700" />
@@ -42,9 +50,10 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Right Form */}
+      {/* Main Login Form Section */}
       <div className="flex items-center justify-center p-8 bg-slate-50 lg:bg-white">
         <Card bordered={false} className="w-full max-w-md shadow-2xl lg:shadow-none bg-transparent">
+          {/* Mobile Header */}
           <div className="mb-10 lg:hidden text-center">
             <Title level={2} className="text-blue-600 font-bold">POS Buzz</Title>
           </div>
@@ -54,6 +63,7 @@ export default function LoginPage() {
             <Text type="secondary" className="text-slate-500 mt-2 block">Enterprise management made simple.</Text>
           </div>
 
+          {/* Form Configuration */}
           <Form
             name="login"
             layout="vertical"
@@ -98,6 +108,7 @@ export default function LoginPage() {
               Sign In
             </Button>
 
+            {/* Navigation to Registration */}
             <div className="text-center mt-8">
               <Space>
                 <Text type="secondary">New to POS Buzz?</Text>
