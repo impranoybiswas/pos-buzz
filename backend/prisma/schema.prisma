@@ -8,28 +8,26 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
 }
 
 model Product {
-  id            Int      @id @default(autoincrement())
+  id            String   @id @default(uuid())
   name          String
   sku           String   @unique
   price         Float
-  stockQuantity Int      @map("stock_quantity") // Best practice: use camelCase in JS, snake_case in DB
+  stockQuantity Int
   createdAt     DateTime @default(now())
-  sales         Sale[]
 }
 
 model Sale {
-  id        Int      @id @default(autoincrement())
-  productId Int
+  id        String   @id @default(uuid())
+  productId String
   quantity  Int
-  total     Float
   createdAt DateTime @default(now())
 
-  product   Product  @relation(fields: [productId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
 }

@@ -12,7 +12,7 @@ export class AppController {
    */
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  getMe(@Req() req) {
+  getMe(@Req() req: { user: Record<string, any> }): Record<string, any> {
     // req.user is populated by the Passport JWT strategy
     return req.user;
   }

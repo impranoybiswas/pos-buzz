@@ -18,4 +18,6 @@ async function bootstrap() {
 }
 
 // Execute the bootstrap function to start the app
-bootstrap();
+bootstrap().catch((err) => {
+  console.error('Error during application bootstrap:', err);
+});
