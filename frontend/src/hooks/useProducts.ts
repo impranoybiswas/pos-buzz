@@ -6,6 +6,8 @@ import {
   deleteProductApi,
 } from "../libs/products.api";
 import toast from "react-hot-toast";
+import { AxiosError } from "axios";
+import type { Product } from "../types";
 
 export const useProducts = () => {
   const queryClient = useQueryClient();
@@ -21,20 +23,32 @@ export const useProducts = () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
       toast.success("Product created successfully");
     },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Failed to create product");
+    onError: (error: unknown) => {
+      let message = "Failed to create product";
+
+      if (error instanceof AxiosError) {
+        message = error.response?.data?.message ?? message;
+      }
+
+      toast.error(message);
     },
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: any }) =>
+    mutationFn: ({ id, data }: { id: string; data: Product }) =>
       updateProductApi(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
       toast.success("Product updated successfully");
     },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Failed to update product");
+    onError: (error: unknown) => {
+      let message = "Failed to update product";
+
+      if (error instanceof AxiosError) {
+        message = error.response?.data?.message ?? message;
+      }
+
+      toast.error(message);
     },
   });
 
@@ -44,8 +58,14 @@ export const useProducts = () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
       toast.success("Product deleted successfully");
     },
-    onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Failed to delete product");
+    onError: (error: unknown) => {
+      let message = "Failed to delete product";
+
+      if (error instanceof AxiosError) {
+        message = error.response?.data?.message ?? message;
+      }
+
+      toast.error(message);
     },
   });
 
