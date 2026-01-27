@@ -12,17 +12,17 @@ export const getProductsApi = async (): Promise<Product[]> => {
 
 /**
  * Creates a new product entry in the database.
- * Maps stock_quantity to match backend schema expectations.
+ * Maps stockQuantity to match backend schema expectations.
  * @param data Product details excluding ID.
  */
 export const createProductApi = async (
-  data: Omit<Product, "id">,
+  data: Omit<Product, "id">
 ): Promise<Product> => {
   const res = await api.post<Product>("/products", {
     name: data.name,
     sku: data.sku,
     price: data.price,
-    stock_quantity: data.stock_quantity,
+    stockQuantity: data.stockQuantity,
   });
   return res.data;
 };
@@ -35,14 +35,14 @@ export const createProductApi = async (
  */
 export const updateProductApi = async (
   id: string,
-  data: Partial<Omit<Product, "id">>,
+  data: Partial<Omit<Product, "id">>
 ): Promise<Product> => {
   const payload: Partial<Omit<Product, "id">> = { ...data };
 
   // Ensure stock field is mapped correctly for the backend if provided
-  if (data.stock_quantity !== undefined) {
-    payload.stock_quantity = data.stock_quantity;
-    delete payload.stock_quantity;
+  if (data.stockQuantity !== undefined) {
+    payload.stockQuantity = data.stockQuantity;
+    delete payload.stockQuantity;
   }
 
   const res = await api.patch<Product>(`/products/${id}`, payload);

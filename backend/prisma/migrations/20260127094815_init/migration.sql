@@ -2,7 +2,7 @@
   Warnings:
 
   - The primary key for the `Product` table will be changed. If it partially fails, the table could be left without primary key constraint.
-  - You are about to drop the column `stock_quantity` on the `Product` table. All the data in the column will be lost.
+  - You are about to drop the column `stockQuantity` on the `Product` table. All the data in the column will be lost.
   - The primary key for the `Sale` table will be changed. If it partially fails, the table could be left without primary key constraint.
   - You are about to drop the column `total` on the `Sale` table. All the data in the column will be lost.
   - The primary key for the `User` table will be changed. If it partially fails, the table could be left without primary key constraint.
@@ -14,7 +14,7 @@ ALTER TABLE "Sale" DROP CONSTRAINT "Sale_productId_fkey";
 
 -- AlterTable
 ALTER TABLE "Product" DROP CONSTRAINT "Product_pkey",
-DROP COLUMN "stock_quantity",
+DROP COLUMN "stockQuantity",
 ADD COLUMN     "stockQuantity" INTEGER NOT NULL,
 ALTER COLUMN "id" DROP DEFAULT,
 ALTER COLUMN "id" SET DATA TYPE TEXT,

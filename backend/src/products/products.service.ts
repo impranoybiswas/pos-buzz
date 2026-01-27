@@ -9,14 +9,14 @@ export class ProductsService {
     name: string;
     sku: string;
     price: number;
-    stock_quantity: number;
+    stockQuantity: number;
   }) {
     return this.prisma.product.create({
       data: {
         name: data.name,
         sku: data.sku,
         price: data.price,
-        stockQuantity: data.stock_quantity,
+        stockQuantity: data.stockQuantity,
       },
     });
   }
@@ -37,13 +37,13 @@ export class ProductsService {
       name?: string;
       sku?: string;
       price?: number;
-      stock_quantity?: number;
+      stockQuantity?: number;
     },
   ) {
     const updateData: any = { ...data };
-    if (data.stock_quantity !== undefined) {
-      updateData.stockQuantity = data.stock_quantity;
-      delete updateData.stock_quantity;
+    if (data.stockQuantity !== undefined) {
+      updateData.stockQuantity = data.stockQuantity;
+      delete updateData.stockQuantity;
     }
 
     return this.prisma.product.update({

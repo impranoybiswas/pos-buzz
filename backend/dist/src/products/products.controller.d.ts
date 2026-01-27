@@ -6,7 +6,7 @@ export declare class ProductsController {
         name: string;
         sku: string;
         price: number;
-        stock_quantity: number;
+        stockQuantity: number;
     }): Promise<{
         id: string;
         createdAt: Date;
@@ -35,7 +35,7 @@ export declare class ProductsController {
         name?: string;
         sku?: string;
         price?: number;
-        stock_quantity?: number;
+        stockQuantity?: number;
     }): Promise<{
         id: string;
         createdAt: Date;

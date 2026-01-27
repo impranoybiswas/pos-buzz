@@ -14,7 +14,7 @@ CREATE TABLE "Product" (
     "name" TEXT NOT NULL,
     "sku" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
-    "stock_quantity" INTEGER NOT NULL,
+    "stockQuantity" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")

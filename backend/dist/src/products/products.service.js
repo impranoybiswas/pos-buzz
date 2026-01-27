@@ -23,7 +23,7 @@ let ProductsService = class ProductsService {
                 name: data.name,
                 sku: data.sku,
                 price: data.price,
-                stockQuantity: data.stock_quantity,
+                stockQuantity: data.stockQuantity,
             },
         });
     }
@@ -37,9 +37,9 @@ let ProductsService = class ProductsService {
     }
     async update(id, data) {
         const updateData = { ...data };
-        if (data.stock_quantity !== undefined) {
-            updateData.stockQuantity = data.stock_quantity;
-            delete updateData.stock_quantity;
+        if (data.stockQuantity !== undefined) {
+            updateData.stockQuantity = data.stockQuantity;
+            delete updateData.stockQuantity;
         }
         return this.prisma.product.update({
             where: { id },

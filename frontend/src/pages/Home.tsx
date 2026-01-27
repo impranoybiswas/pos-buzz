@@ -4,7 +4,7 @@ import {
   UserOutlined,
   LineChartOutlined,
   RiseOutlined,
-  ArrowUpOutlined
+  ArrowUpOutlined,
 } from "@ant-design/icons";
 import {
   AreaChart,
@@ -15,7 +15,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   BarChart,
-  Bar
+  Bar,
 } from "recharts";
 import { useProducts } from "../hooks/useProducts";
 
@@ -42,24 +42,40 @@ const data = [
 export default function HomePage() {
   const { productsQuery } = useProducts();
   const totalProducts = productsQuery.data?.length || 0;
-  const totalStock = productsQuery.data?.reduce((acc, p) => acc + p.stock_quantity, 0) || 0;
+  const totalStock =
+    productsQuery.data?.reduce((acc, p) => acc + p.stockQuantity, 0) || 0;
 
   return (
     <div className="py-8 space-y-8">
       {/* Page Header */}
       <div className="flex flex-col gap-1">
-        <Title level={2} className="m-0">Business Intelligence</Title>
-        <Text type="secondary">Real-time overview of your store performance and inventory.</Text>
+        <Title level={2} className="m-0">
+          Business Intelligence
+        </Title>
+        <Text type="secondary">
+          Real-time overview of your store performance and inventory.
+        </Text>
       </div>
 
       {/* Statistical Summary Row */}
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} className="shadow-sm hover:shadow-md transition-all duration-300">
+          <Card
+            bordered={false}
+            className="shadow-sm hover:shadow-md transition-all duration-300"
+          >
             <Statistic
-              title={<span className="text-slate-500 font-medium">Total Products</span>}
+              title={
+                <span className="text-slate-500 font-medium">
+                  Total Products
+                </span>
+              }
               value={totalProducts}
-              prefix={<div className="p-2 bg-blue-50 rounded-lg mr-2"><ShoppingOutlined className="text-blue-600" /></div>}
+              prefix={
+                <div className="p-2 bg-blue-50 rounded-lg mr-2">
+                  <ShoppingOutlined className="text-blue-600" />
+                </div>
+              }
             />
             <div className="mt-4 flex items-center text-green-500 text-sm font-medium">
               <ArrowUpOutlined /> <span>12% from last month</span>
@@ -67,11 +83,22 @@ export default function HomePage() {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} className="shadow-sm hover:shadow-md transition-shadow">
+          <Card
+            bordered={false}
+            className="shadow-sm hover:shadow-md transition-shadow"
+          >
             <Statistic
-              title={<span className="text-slate-500 font-medium">In-Stock Units</span>}
+              title={
+                <span className="text-slate-500 font-medium">
+                  In-Stock Units
+                </span>
+              }
               value={totalStock}
-              prefix={<div className="p-2 bg-indigo-50 rounded-lg mr-2"><RiseOutlined className="text-indigo-600" /></div>}
+              prefix={
+                <div className="p-2 bg-indigo-50 rounded-lg mr-2">
+                  <RiseOutlined className="text-indigo-600" />
+                </div>
+              }
             />
             <div className="mt-4 flex items-center text-slate-400 text-sm">
               Current inventory levels
@@ -79,11 +106,22 @@ export default function HomePage() {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} className="shadow-sm hover:shadow-md transition-shadow">
+          <Card
+            bordered={false}
+            className="shadow-sm hover:shadow-md transition-shadow"
+          >
             <Statistic
-              title={<span className="text-slate-500 font-medium">Gross Revenue</span>}
-              value={totalProducts * 1250.50} // Simulated revenue based on inventory
-              prefix={<div className="p-2 bg-emerald-50 rounded-lg mr-2"><LineChartOutlined className="text-emerald-600" /></div>}
+              title={
+                <span className="text-slate-500 font-medium">
+                  Gross Revenue
+                </span>
+              }
+              value={totalProducts * 1250.5} // Simulated revenue based on inventory
+              prefix={
+                <div className="p-2 bg-emerald-50 rounded-lg mr-2">
+                  <LineChartOutlined className="text-emerald-600" />
+                </div>
+              }
               precision={2}
             />
             <div className="mt-4 flex items-center text-green-500 text-sm font-medium">
@@ -92,11 +130,22 @@ export default function HomePage() {
           </Card>
         </Col>
         <Col xs={24} sm={12} lg={6}>
-          <Card bordered={false} className="shadow-sm hover:shadow-md transition-shadow">
+          <Card
+            bordered={false}
+            className="shadow-sm hover:shadow-md transition-shadow"
+          >
             <Statistic
-              title={<span className="text-slate-500 font-medium">Staff Members</span>}
+              title={
+                <span className="text-slate-500 font-medium">
+                  Staff Members
+                </span>
+              }
               value={4}
-              prefix={<div className="p-2 bg-rose-50 rounded-lg mr-2"><UserOutlined className="text-rose-600" /></div>}
+              prefix={
+                <div className="p-2 bg-rose-50 rounded-lg mr-2">
+                  <UserOutlined className="text-rose-600" />
+                </div>
+              }
             />
             <div className="mt-4 flex items-center text-slate-400 text-sm uppercase tracking-wider">
               Management
@@ -108,7 +157,11 @@ export default function HomePage() {
       {/* Analytics Row */}
       <Row gutter={[24, 24]}>
         <Col xs={24} lg={16}>
-          <Card title="Sales Analytics" bordered={false} className="shadow-sm h-112.5">
+          <Card
+            title="Sales Analytics"
+            bordered={false}
+            className="shadow-sm h-112.5"
+          >
             <ResponsiveContainer width="100%" height={350}>
               <AreaChart data={data}>
                 <defs>
@@ -117,29 +170,79 @@ export default function HomePage() {
                     <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                <Tooltip
-                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke="#f1f5f9"
                 />
-                <Area type="monotone" dataKey="sales" stroke="#2563eb" fillOpacity={1} fill="url(#colorSales)" strokeWidth={2} />
+                <XAxis
+                  dataKey="name"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fill: "#94a3b8", fontSize: 12 }}
+                />
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fill: "#94a3b8", fontSize: 12 }}
+                />
+                <Tooltip
+                  contentStyle={{
+                    borderRadius: "12px",
+                    border: "none",
+                    boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+                  }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="sales"
+                  stroke="#2563eb"
+                  fillOpacity={1}
+                  fill="url(#colorSales)"
+                  strokeWidth={2}
+                />
               </AreaChart>
             </ResponsiveContainer>
           </Card>
         </Col>
         <Col xs={24} lg={8}>
-          <Card title="Inventory Distribution" bordered={false} className="shadow-sm h-112.5">
+          <Card
+            title="Inventory Distribution"
+            bordered={false}
+            className="shadow-sm h-112.5"
+          >
             <ResponsiveContainer width="100%" height={350}>
               <BarChart data={data}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 12 }} />
-                <Tooltip
-                  cursor={{ fill: '#f8fafc' }}
-                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke="#f1f5f9"
                 />
-                <Bar dataKey="stock" fill="#6366f1" radius={[4, 4, 0, 0]} barSize={20} />
+                <XAxis
+                  dataKey="name"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fill: "#94a3b8", fontSize: 12 }}
+                />
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fill: "#94a3b8", fontSize: 12 }}
+                />
+                <Tooltip
+                  cursor={{ fill: "#f8fafc" }}
+                  contentStyle={{
+                    borderRadius: "12px",
+                    border: "none",
+                    boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)",
+                  }}
+                />
+                <Bar
+                  dataKey="stock"
+                  fill="#6366f1"
+                  radius={[4, 4, 0, 0]}
+                  barSize={20}
+                />
               </BarChart>
             </ResponsiveContainer>
           </Card>

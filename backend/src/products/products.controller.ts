@@ -23,7 +23,7 @@ export class ProductsController {
       name: string;
       sku: string;
       price: number;
-      stock_quantity: number;
+      stockQuantity: number;
     },
   ) {
     return this.service.create(body);
@@ -47,7 +47,7 @@ export class ProductsController {
       name?: string;
       sku?: string;
       price?: number;
-      stock_quantity?: number;
+      stockQuantity?: number;
     },
   ) {
     return this.service.update(id, body);

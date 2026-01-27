@@ -3,7 +3,7 @@ export interface Product {
   name: string;
   sku: string;
   price: number;
-  stock_quantity: number;
+  stockQuantity: number;
 }
 
 export interface Auth {
