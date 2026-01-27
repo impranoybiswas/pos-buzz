@@ -6,6 +6,11 @@ export interface Product {
   stockQuantity: number;
 }
 
+export interface Auth {
+  email: string;
+  password: string;
+}
+
 export interface LoginResponse {
   access_token: string;
 }
@@ -13,4 +18,8 @@ export interface LoginResponse {
 export interface SalePayload {
   productId: string;
   quantity: number;
+}
+
+export interface RegisterData extends Auth {
+  name: string;
 }
