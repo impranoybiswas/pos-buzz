@@ -68,11 +68,10 @@ let AuthService = class AuthService {
         return { access_token: token };
     }
     async register(fullName, email, password) {
-        console.log('SERVICE fullName:', fullName, typeof fullName);
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await this.prisma.user.create({
             data: {
-                fullName,
+                fullName: fullName || 'user',
                 email,
                 password: hashedPassword,
             },
