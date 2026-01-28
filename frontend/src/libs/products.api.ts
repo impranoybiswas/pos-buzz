@@ -16,7 +16,7 @@ export const getProductsApi = async (): Promise<Product[]> => {
  * @param data Product details excluding ID.
  */
 export const createProductApi = async (
-  data: Omit<Product, "id">
+  data: Omit<Product, "id">,
 ): Promise<Product> => {
   const res = await api.post<Product>("/products", {
     name: data.name,
@@ -35,15 +35,9 @@ export const createProductApi = async (
  */
 export const updateProductApi = async (
   id: string,
-  data: Partial<Omit<Product, "id">>
+  data: Partial<Omit<Product, "id">>,
 ): Promise<Product> => {
   const payload: Partial<Omit<Product, "id">> = { ...data };
-
-  // Ensure stock field is mapped correctly for the backend if provided
-  if (data.stockQuantity !== undefined) {
-    payload.stockQuantity = data.stockQuantity;
-    delete payload.stockQuantity;
-  }
 
   const res = await api.patch<Product>(`/products/${id}`, payload);
   return res.data;

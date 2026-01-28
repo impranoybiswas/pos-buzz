@@ -10,6 +10,8 @@ import {
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { AuthGuard } from '@nestjs/passport';
+import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('products')
@@ -17,15 +19,7 @@ export class ProductsController {
   constructor(private service: ProductsService) {}
 
   @Post()
-  create(
-    @Body()
-    body: {
-      name: string;
-      sku: string;
-      price: number;
-      stockQuantity: number;
-    },
-  ) {
+  create(@Body() body: CreateProductDto) {
     return this.service.create(body);
   }
 
@@ -40,16 +34,7 @@ export class ProductsController {
   }
 
   @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body()
-    body: {
-      name?: string;
-      sku?: string;
-      price?: number;
-      stockQuantity?: number;
-    },
-  ) {
+  update(@Param('id') id: string, @Body() body: UpdateProductDto) {
     return this.service.update(id, body);
   }
 
