@@ -8,6 +8,8 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { User } from '@prisma/client';
+import { RegisterDto } from './dto/register.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -19,13 +21,13 @@ export class AuthController {
   }
 
   @Post('register')
-  register(@Body() body: { email: string; password: string }) {
-    return this.auth.register(body.email, body.password);
+  register(@Body() body: RegisterDto) {
+    return this.auth.register(body.fullName, body.email, body.password);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  getProfile(@Request() req: { user: User }) {
     return req.user;
   }
 }

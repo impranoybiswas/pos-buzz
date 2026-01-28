@@ -20,10 +20,34 @@ export declare class SalesService {
         };
     } & {
         id: string;
-        quantity: number;
         createdAt: Date;
+        quantity: number;
         productId: string;
     }>;
-    findAll(): Promise<any>;
-    findOne(id: string): Promise<any>;
+    findAll(): Promise<{
+        id: string;
+        createdAt: Date;
+        quantity: number;
+        productId: string;
+    }[]>;
+    findOne(id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        quantity: number;
+        productId: string;
+    }[] | ({
+        product: {
+            id: string;
+            createdAt: Date;
+            name: string;
+            sku: string;
+            price: number;
+            stockQuantity: number;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        quantity: number;
+        productId: string;
+    })>;
 }

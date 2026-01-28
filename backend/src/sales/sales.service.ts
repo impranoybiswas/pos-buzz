@@ -7,6 +7,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { RedisService } from '../redis/redis.service';
 import { CreateSaleDto } from './dto/create-sale.dto';
+import { Sale } from '@prisma/client';
 
 @Injectable()
 export class SalesService {
@@ -41,7 +42,7 @@ export class SalesService {
         }
 
         // 2. Deduct stock
-        const updatedProduct = await tx.product.update({
+        await tx.product.update({
           where: { id: data.productId },
           data: {
             stockQuantity: {
@@ -68,25 +69,23 @@ export class SalesService {
 
         return sale;
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (
         error instanceof BadRequestException ||
         error instanceof NotFoundException
       ) {
         throw error;
       }
-      throw new InternalServerErrorException(
-        'Failed to create sale',
-        error.message,
-      );
+      console.error(error);
+      throw new InternalServerErrorException('Failed to create sale');
     }
   }
 
   async findAll() {
     try {
       const cached = await this.redis.get(this.ALL_SALES_KEY);
-      if (cached) {
-        return JSON.parse(cached);
+      if (cached !== null) {
+        return JSON.parse(cached) as Sale[];
       }
 
       const sales = await this.prisma.sale.findMany({
@@ -100,11 +99,9 @@ export class SalesService {
 
       await this.redis.set(this.ALL_SALES_KEY, JSON.stringify(sales), 3600);
       return sales;
-    } catch (error: any) {
-      throw new InternalServerErrorException(
-        'Failed to fetch sales',
-        error.message,
-      );
+    } catch (error: unknown) {
+      console.error(error);
+      throw new InternalServerErrorException('Failed to fetch sales');
     }
   }
 
@@ -112,8 +109,8 @@ export class SalesService {
     try {
       const key = `${this.SALE_KEY_PREFIX}${id}`;
       const cached = await this.redis.get(key);
-      if (cached) {
-        return JSON.parse(cached);
+      if (cached !== null) {
+        return JSON.parse(cached) as Sale[];
       }
 
       const sale = await this.prisma.sale.findUnique({
@@ -131,10 +128,8 @@ export class SalesService {
       return sale;
     } catch (error: any) {
       if (error instanceof NotFoundException) throw error;
-      throw new InternalServerErrorException(
-        'Failed to fetch sale',
-        error.message,
-      );
+      console.log(error);
+      throw new InternalServerErrorException('Failed to fetch sale');
     }
   }
 }

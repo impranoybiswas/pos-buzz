@@ -142,7 +142,7 @@ export default function SalesPage() {
       {/* Statistics Row */}
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={8}>
-          <Card bordered={false} className="shadow-sm">
+          <Card variant="borderless" className="shadow-sm">
             <Statistic
               title={
                 <span className="text-slate-500 font-medium">Total Sales</span>
@@ -157,7 +157,7 @@ export default function SalesPage() {
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card bordered={false} className="shadow-sm">
+          <Card variant="borderless" className="shadow-sm">
             <Statistic
               title={
                 <span className="text-slate-500 font-medium">Items Sold</span>
@@ -172,7 +172,7 @@ export default function SalesPage() {
           </Card>
         </Col>
         <Col xs={24} sm={8}>
-          <Card bordered={false} className="shadow-sm">
+          <Card variant="borderless" className="shadow-sm">
             <Statistic
               title={
                 <span className="text-slate-500 font-medium">
@@ -192,7 +192,7 @@ export default function SalesPage() {
       </Row>
 
       {/* Sales Table */}
-      <Card title="Sales History" bordered={false} className="shadow-sm">
+      <Card title="Sales History" variant="borderless" className="shadow-sm">
         <Table
           columns={columns}
           dataSource={sales}

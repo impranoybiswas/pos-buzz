@@ -5,12 +5,14 @@ export declare class UsersService {
     findByEmail(email: string): Promise<{
         id: string;
         email: string;
+        fullName: string;
         password: string;
         createdAt: Date;
     } | null>;
-    createUser(email: string, password: string): Promise<{
+    createUser(fullName: string, email: string, password: string): Promise<{
         id: string;
         email: string;
+        fullName: string;
         password: string;
         createdAt: Date;
     }>;

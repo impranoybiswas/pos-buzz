@@ -61,13 +61,18 @@ let AuthService = class AuthService {
         const match = await bcrypt.compare(password, user.password);
         if (!match)
             throw new common_1.UnauthorizedException();
-        const token = this.jwt.sign({ userId: user.id, email: user.email });
+        const token = this.jwt.sign({
+            userId: user.id,
+            email: user.email,
+        });
         return { access_token: token };
     }
-    async register(email, password) {
+    async register(fullName, email, password) {
+        console.log('SERVICE fullName:', fullName, typeof fullName);
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await this.prisma.user.create({
             data: {
+                fullName,
                 email,
                 password: hashedPassword,
             },

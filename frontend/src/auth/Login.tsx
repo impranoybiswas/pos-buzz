@@ -42,7 +42,7 @@ export default function LoginPage() {
       {/* Main Login Form Section */}
 
       <Card
-        bordered={false}
+        variant="borderless"
         className="w-full max-w-md shadow-3xl lg:shadow-none bg-transparent"
       >
         {/* Mobile Header */}

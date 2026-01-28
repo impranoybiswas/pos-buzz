@@ -61,7 +61,7 @@ export default function HomePage() {
       <Row gutter={[24, 24]}>
         <Col xs={24} sm={12} lg={6}>
           <Card
-            bordered={false}
+            variant="borderless"
             className="shadow-sm hover:shadow-md transition-all duration-300"
           >
             <Statistic
@@ -84,7 +84,7 @@ export default function HomePage() {
         </Col>
         <Col xs={24} sm={12} lg={6}>
           <Card
-            bordered={false}
+            variant="borderless"
             className="shadow-sm hover:shadow-md transition-shadow"
           >
             <Statistic
@@ -107,7 +107,7 @@ export default function HomePage() {
         </Col>
         <Col xs={24} sm={12} lg={6}>
           <Card
-            bordered={false}
+            variant="borderless"
             className="shadow-sm hover:shadow-md transition-shadow"
           >
             <Statistic
@@ -131,7 +131,7 @@ export default function HomePage() {
         </Col>
         <Col xs={24} sm={12} lg={6}>
           <Card
-            bordered={false}
+            variant="borderless"
             className="shadow-sm hover:shadow-md transition-shadow"
           >
             <Statistic
@@ -159,7 +159,7 @@ export default function HomePage() {
         <Col xs={24} lg={16}>
           <Card
             title="Sales Analytics"
-            bordered={false}
+            variant="borderless"
             className="shadow-sm h-112.5"
           >
             <ResponsiveContainer width="100%" height={350}>
@@ -208,7 +208,7 @@ export default function HomePage() {
         <Col xs={24} lg={8}>
           <Card
             title="Inventory Distribution"
-            bordered={false}
+            variant="borderless"
             className="shadow-sm h-112.5"
           >
             <ResponsiveContainer width="100%" height={350}>

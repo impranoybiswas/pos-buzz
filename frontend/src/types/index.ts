@@ -14,7 +14,7 @@ export interface Auth {
 export interface User {
   userId: string;
   email: string;
-  name: string;
+  fullName: string;
 }
 
 export interface LoginResponse {
@@ -35,5 +35,5 @@ export interface Sale {
 }
 
 export interface RegisterData extends Auth {
-  name: string;
+  fullName: string;
 }

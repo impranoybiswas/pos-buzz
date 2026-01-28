@@ -6,49 +6,49 @@ export declare class ProductsController {
     constructor(service: ProductsService);
     create(body: CreateProductDto): Promise<{
         id: string;
+        createdAt: Date;
         name: string;
         sku: string;
         price: number;
         stockQuantity: number;
-        createdAt: Date;
     }>;
     findAll(): Promise<{
         id: string;
+        createdAt: Date;
         name: string;
         sku: string;
         price: number;
         stockQuantity: number;
-        createdAt: Date;
     }[]>;
     findOne(id: string): Promise<{
         id: string;
+        createdAt: Date;
         name: string;
         sku: string;
         price: number;
         stockQuantity: number;
-        createdAt: Date;
     } | {
         id: string;
+        createdAt: Date;
         name: string;
         sku: string;
         price: number;
         stockQuantity: number;
-        createdAt: Date;
     }[] | null>;
     update(id: string, body: UpdateProductDto): Promise<{
         id: string;
+        createdAt: Date;
         name: string;
         sku: string;
         price: number;
         stockQuantity: number;
-        createdAt: Date;
     }>;
     remove(id: string): Promise<{
         id: string;
+        createdAt: Date;
         name: string;
         sku: string;
         price: number;
         stockQuantity: number;
-        createdAt: Date;
     }>;
 }

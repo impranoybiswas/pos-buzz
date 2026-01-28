@@ -7,7 +7,7 @@ export declare class AuthService {
     login(email: string, password: string): Promise<{
         access_token: string;
     }>;
-    register(email: string, password: string): Promise<{
+    register(fullName: string, email: string, password: string): Promise<{
         id: string;
         email: string;
     }>;

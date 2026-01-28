@@ -36,7 +36,7 @@ let SalesService = class SalesService {
                 if (product.stockQuantity < data.quantity) {
                     throw new common_1.BadRequestException(`Insufficient stock for product ${product.name}. Available: ${product.stockQuantity}, Requested: ${data.quantity}`);
                 }
-                const updatedProduct = await tx.product.update({
+                await tx.product.update({
                     where: { id: data.productId },
                     data: {
                         stockQuantity: {
@@ -64,13 +64,14 @@ let SalesService = class SalesService {
                 error instanceof common_1.NotFoundException) {
                 throw error;
             }
-            throw new common_1.InternalServerErrorException('Failed to create sale', error.message);
+            console.error(error);
+            throw new common_1.InternalServerErrorException('Failed to create sale');
         }
     }
     async findAll() {
         try {
             const cached = await this.redis.get(this.ALL_SALES_KEY);
-            if (cached) {
+            if (cached !== null) {
                 return JSON.parse(cached);
             }
             const sales = await this.prisma.sale.findMany({
@@ -85,14 +86,15 @@ let SalesService = class SalesService {
             return sales;
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Failed to fetch sales', error.message);
+            console.error(error);
+            throw new common_1.InternalServerErrorException('Failed to fetch sales');
         }
     }
     async findOne(id) {
         try {
             const key = `${this.SALE_KEY_PREFIX}${id}`;
             const cached = await this.redis.get(key);
-            if (cached) {
+            if (cached !== null) {
                 return JSON.parse(cached);
             }
             const sale = await this.prisma.sale.findUnique({
@@ -110,7 +112,8 @@ let SalesService = class SalesService {
         catch (error) {
             if (error instanceof common_1.NotFoundException)
                 throw error;
-            throw new common_1.InternalServerErrorException('Failed to fetch sale', error.message);
+            console.log(error);
+            throw new common_1.InternalServerErrorException('Failed to fetch sale');
         }
     }
 };

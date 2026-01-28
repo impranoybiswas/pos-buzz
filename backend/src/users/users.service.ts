@@ -21,13 +21,15 @@ export class UsersService {
 
   /**
    * Creates a new user in the database.
+   * @param fullName The user's full name.
    * @param email The user's email address.
    * @param password The user's hashed password.
    * @returns The newly created user object.
    */
-  async createUser(email: string, password: string) {
+  async createUser(fullName: string, email: string, password: string) {
     return this.prisma.user.create({
       data: {
+        fullName,
         email,
         password,
       },

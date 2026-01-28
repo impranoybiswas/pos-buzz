@@ -1,19 +1,27 @@
-import { Controller, Get, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { AppService } from './app.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
-/**
- * AppController handles root-level or generic authentication checks.
- */
 @Controller()
 export class AppController {
+  constructor(private readonly appService: AppService) {}
+
   /**
+   * Public health/root endpoint
+   * GET /
+   */
+  @Get()
+  getHello(): string {
+    return this.appService.getHello();
+  }
+
+  /**
+   * Protected endpoint
    * GET /me
-   * Returns the currently authenticated user's profile based on the JWT.
    */
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  getMe(@Req() req: { user: Record<string, any> }): Record<string, any> {
-    // req.user is populated by the Passport JWT strategy
+  getMe(@Req() req: { user: Record<string, any> }) {
     return req.user;
   }
 }

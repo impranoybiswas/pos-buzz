@@ -22,9 +22,10 @@ let UsersService = class UsersService {
             where: { email },
         });
     }
-    async createUser(email, password) {
+    async createUser(fullName, email, password) {
         return this.prisma.user.create({
             data: {
+                fullName,
                 email,
                 password,
             },

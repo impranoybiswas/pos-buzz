@@ -7,7 +7,7 @@ export default function ErrorPage() {
   const location = useLocation();
 
   return (
-    <div className="min-h-[calc(100vh-80px)] bg-linear-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center px-4">
+    <div className="min-h-dvh bg-linear-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center px-4">
       <div className="max-w-2xl w-full">
         <Result
           status="404"

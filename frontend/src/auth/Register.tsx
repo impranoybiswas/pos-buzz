@@ -34,7 +34,7 @@ export default function RegisterPage() {
   return (
     <section className="min-h-[calc(100vh-70px)] flex items-center justify-center">
       <Card
-        bordered={false}
+        variant="borderless"
         className="w-full max-w-md shadow-3xl lg:shadow-none bg-transparent"
       >
         <div className="mb-10 text-center lg:text-left">
@@ -61,7 +61,7 @@ export default function RegisterPage() {
             label={
               <span className="font-semibold text-slate-600">Full Name</span>
             }
-            name="name"
+            name="fullName"
             rules={[{ required: true, message: "Please input your name!" }]}
           >
             <Input

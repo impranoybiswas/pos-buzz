@@ -193,7 +193,7 @@ export default function ProductsPage() {
       </div>
 
       {/* List & Search Container */}
-      <Card bordered={false} className="shadow-sm">
+      <Card variant="borderless" className="shadow-sm">
         <div className="mb-6 flex items-center justify-between gap-3">
           <Input
             placeholder="Search by name or SKU..."
