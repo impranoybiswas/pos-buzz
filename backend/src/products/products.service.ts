@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { RedisService } from '../redis/redis.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Product } from '@prisma/client';
 
 @Injectable()
 export class ProductsService {
@@ -28,18 +29,17 @@ export class ProductsService {
       await this.redis.del(this.ALL_PRODUCTS_KEY);
       return product;
     } catch (error) {
-      throw new InternalServerErrorException(
-        'Failed to create product',
-        error.message,
-      );
+      console.error(error);
+      throw new InternalServerErrorException('Failed to create product');
     }
   }
 
   async findAll() {
     // Try to get from cache
     const cached = await this.redis.get(this.ALL_PRODUCTS_KEY);
-    if (cached) {
-      return JSON.parse(cached);
+
+    if (cached !== null) {
+      return JSON.parse(cached) as Product[];
     }
 
     const products = await this.prisma.product.findMany();
@@ -51,8 +51,8 @@ export class ProductsService {
   async findOne(id: string) {
     const key = `${this.PRODUCT_KEY_PREFIX}${id}`;
     const cached = await this.redis.get(key);
-    if (cached) {
-      return JSON.parse(cached);
+    if (cached !== null) {
+      return JSON.parse(cached) as Product[];
     }
 
     const product = await this.prisma.product.findUnique({
@@ -76,10 +76,8 @@ export class ProductsService {
       await this.redis.del(`${this.PRODUCT_KEY_PREFIX}${id}`);
       return product;
     } catch (error) {
-      throw new InternalServerErrorException(
-        'Failed to update product',
-        error.message,
-      );
+      console.error(error);
+      throw new InternalServerErrorException('Failed to update product');
     }
   }
 
@@ -93,10 +91,8 @@ export class ProductsService {
       await this.redis.del(`${this.PRODUCT_KEY_PREFIX}${id}`);
       return product;
     } catch (error) {
-      throw new InternalServerErrorException(
-        'Failed to delete product',
-        error.message,
-      );
+      console.error(error);
+      throw new InternalServerErrorException('Failed to delete product');
     }
   }
 }

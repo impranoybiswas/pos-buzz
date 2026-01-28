@@ -12,8 +12,29 @@ export declare class ProductsController {
         stockQuantity: number;
         createdAt: Date;
     }>;
-    findAll(): Promise<any>;
-    findOne(id: string): Promise<any>;
+    findAll(): Promise<{
+        id: string;
+        name: string;
+        sku: string;
+        price: number;
+        stockQuantity: number;
+        createdAt: Date;
+    }[]>;
+    findOne(id: string): Promise<{
+        id: string;
+        name: string;
+        sku: string;
+        price: number;
+        stockQuantity: number;
+        createdAt: Date;
+    } | {
+        id: string;
+        name: string;
+        sku: string;
+        price: number;
+        stockQuantity: number;
+        createdAt: Date;
+    }[] | null>;
     update(id: string, body: UpdateProductDto): Promise<{
         id: string;
         name: string;

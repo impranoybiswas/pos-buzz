@@ -36,12 +36,13 @@ let ProductsService = class ProductsService {
             return product;
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Failed to create product', error.message);
+            console.error(error);
+            throw new common_1.InternalServerErrorException('Failed to create product');
         }
     }
     async findAll() {
         const cached = await this.redis.get(this.ALL_PRODUCTS_KEY);
-        if (cached) {
+        if (cached !== null) {
             return JSON.parse(cached);
         }
         const products = await this.prisma.product.findMany();
@@ -51,7 +52,7 @@ let ProductsService = class ProductsService {
     async findOne(id) {
         const key = `${this.PRODUCT_KEY_PREFIX}${id}`;
         const cached = await this.redis.get(key);
-        if (cached) {
+        if (cached !== null) {
             return JSON.parse(cached);
         }
         const product = await this.prisma.product.findUnique({
@@ -73,7 +74,8 @@ let ProductsService = class ProductsService {
             return product;
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Failed to update product', error.message);
+            console.error(error);
+            throw new common_1.InternalServerErrorException('Failed to update product');
         }
     }
     async remove(id) {
@@ -86,7 +88,8 @@ let ProductsService = class ProductsService {
             return product;
         }
         catch (error) {
-            throw new common_1.InternalServerErrorException('Failed to delete product', error.message);
+            console.error(error);
+            throw new common_1.InternalServerErrorException('Failed to delete product');
         }
     }
 };
