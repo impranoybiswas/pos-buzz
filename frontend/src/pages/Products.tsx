@@ -199,12 +199,13 @@ export default function ProductsPage() {
             placeholder="Search by name or SKU..."
             prefix={<SearchOutlined className="text-slate-400" />}
             onChange={(e) => setSearchText(e.target.value)}
-            className="h-8 rounded-xl"
+            className="h-10 rounded-xl"
             allowClear
           />
 
           <Button
             icon={<ReloadOutlined />}
+            shape="circle"
             onClick={() => productsQuery.refetch()}
           />
         </div>
@@ -231,7 +232,7 @@ export default function ProductsPage() {
               {editingProduct ? "Edit Product" : "Add New Product"}
             </Title>
             <Text type="secondary" className="text-xs">
-              Fill in the details below to{" "}
+              Fill in the details below to
               {editingProduct ? "update" : "create"} the product.
             </Text>
           </div>
@@ -239,7 +240,7 @@ export default function ProductsPage() {
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
-        destroyOnClose
+        destroyOnHidden
         className="rounded-2xl"
       >
         <Form

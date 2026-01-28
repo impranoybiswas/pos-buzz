@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, Button, Space, Drawer } from "antd";
+import { Menu, Button, Drawer } from "antd";
 import { Link, useLocation } from "react-router";
 import {
   HomeOutlined,
@@ -8,6 +8,7 @@ import {
   LogoutOutlined,
   MenuOutlined,
   DollarOutlined,
+  LoginOutlined,
 } from "@ant-design/icons";
 
 /**
@@ -16,6 +17,7 @@ import {
  */
 export default function Navbar() {
   const location = useLocation();
+  const token = localStorage.getItem("token");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   /**
@@ -70,24 +72,34 @@ export default function Navbar() {
                 mode="horizontal"
                 selectedKeys={[location.pathname]}
                 items={menuItems}
-                className="bg-transparent border-none min-w-75"
+                className="bg-transparent border-2 min-w-150 w-full"
               />
             </nav>
           </div>
 
           {/* Desktop Right Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <Space>
+            <Button
+              type="text"
+              style={{ display: token ? "" : "none" }}
+              icon={<LogoutOutlined />}
+              onClick={handleLogout}
+              size="large"
+            >
+              Logout
+            </Button>
+
+            <Link to="/login">
               <Button
                 type="text"
-                icon={<LogoutOutlined />}
+                style={{ display: token ? "none" : "" }}
+                icon={<LoginOutlined />}
                 onClick={handleLogout}
-                className="text-slate-500 hover:text-red-500 transition-colors"
                 size="large"
               >
-                Logout
+                Login
               </Button>
-            </Space>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
