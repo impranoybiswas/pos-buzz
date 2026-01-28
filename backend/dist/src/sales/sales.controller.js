@@ -15,14 +15,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SalesController = void 0;
 const common_1 = require("@nestjs/common");
 const sales_service_1 = require("./sales.service");
+const create_sale_dto_1 = require("./dto/create-sale.dto");
 const passport_1 = require("@nestjs/passport");
 let SalesController = class SalesController {
-    service;
-    constructor(service) {
-        this.service = service;
+    salesService;
+    constructor(salesService) {
+        this.salesService = salesService;
     }
-    create(body) {
-        return this.service.createSale(body.productId, body.quantity);
+    create(createSaleDto) {
+        return this.salesService.create(createSaleDto);
+    }
+    findAll() {
+        return this.salesService.findAll();
+    }
+    findOne(id) {
+        return this.salesService.findOne(id);
     }
 };
 exports.SalesController = SalesController;
@@ -30,9 +37,22 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [create_sale_dto_1.CreateSaleDto]),
     __metadata("design:returntype", void 0)
 ], SalesController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], SalesController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], SalesController.prototype, "findOne", null);
 exports.SalesController = SalesController = __decorate([
     (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
     (0, common_1.Controller)('sales'),

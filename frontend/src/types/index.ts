@@ -26,6 +26,14 @@ export interface SalePayload {
   quantity: number;
 }
 
+export interface Sale {
+  id: string;
+  productId: string;
+  quantity: number;
+  createdAt: string;
+  product?: Product;
+}
+
 export interface RegisterData extends Auth {
   name: string;
 }

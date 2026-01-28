@@ -1,14 +1,25 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { SalesService } from './sales.service';
+import { CreateSaleDto } from './dto/create-sale.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('sales')
 export class SalesController {
-  constructor(private service: SalesService) {}
+  constructor(private readonly salesService: SalesService) {}
 
   @Post()
-  create(@Body() body: { productId: string; quantity: number }) {
-    return this.service.createSale(body.productId, body.quantity);
+  create(@Body() createSaleDto: CreateSaleDto) {
+    return this.salesService.create(createSaleDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.salesService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.salesService.findOne(id);
   }
 }
