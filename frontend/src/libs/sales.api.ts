@@ -1,3 +1,4 @@
+
 import api from "./axios";
 import type { Sale, SalePayload } from "../types";
 
