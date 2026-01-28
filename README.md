@@ -2,7 +2,7 @@
 
 A modern Point of Sale (POS) system built with NestJS, React, and PostgreSQL. This application demonstrates production-level code quality with comprehensive features for product and sales management.
 
-[![Live Demo](https://pos-buzz-frontend-pranoy.vercel.app/)](https://pos-buzz-frontend-pranoy.vercel.app/)
+🌐 [[Live Demo](https://pos-buzz-frontend-pranoy.vercel.app/)]
 
 ## 🌟 Features
 

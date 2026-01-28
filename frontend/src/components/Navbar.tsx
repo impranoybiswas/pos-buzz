@@ -7,6 +7,7 @@ import {
     UserOutlined,
     LogoutOutlined,
     MenuOutlined,
+    DollarOutlined,
 } from "@ant-design/icons";
 
 /**
@@ -38,6 +39,11 @@ export default function Navbar() {
             key: "/products",
             icon: <ShoppingCartOutlined />,
             label: <Link to="/products">Products</Link>,
+        },
+        {
+            key: "/sales",
+            icon: <DollarOutlined />,
+            label: <Link to="/sales">Sales</Link>,
         },
         {
             key: "/profile",
