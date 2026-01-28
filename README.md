@@ -90,7 +90,7 @@ pos-buzz/
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/pos-buzz.git
+   git clone https://github.com/impranoybiswas/pos-buzz.git
    cd pos-buzz
    ```
 
@@ -126,9 +126,8 @@ pos-buzz/
    ```
 
 4. **Access the application**
-   - Frontend: http://localhost:5173
-   - Backend API: http://localhost:3000
-   - API Documentation: http://localhost:3000/api
+   - Frontend: https://pos-buzz-frontend-pranoy.vercel.app/
+   - Backend API: https://pos-buzz-backend.vercel.app/
 
 ## 📚 Documentation
 
@@ -140,7 +139,7 @@ pos-buzz/
 ### Backend (.env)
 
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/posbuzz"
+DATABASE_URL="postgresql_url"
 REDIS_HOST="localhost"
 REDIS_PORT=6379
 JWT_SECRET="your-secret-key"
@@ -150,7 +149,7 @@ PORT=3000
 ### Frontend (.env)
 
 ```env
-VITE_API_URL=http://localhost:3000
+VITE_API_URL=https://pos-buzz-backend.vercel.app/
 ```
 
 ## 🧪 Testing
@@ -263,8 +262,8 @@ This project is licensed under the MIT License.
 
 **Your Name**
 
-- GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/YOUR_PROFILE)
+- GitHub: [@impranoybiswas](https://github.com/impranoybiswas/)
+- LinkedIn: [@impranoybiswas](https://www.linkedin.com/in/impranoybiswas/)
 
 ## 🙏 Acknowledgments
 
@@ -275,6 +274,5 @@ This project is licensed under the MIT License.
 
 ---
 
-**Live Demo:** [YOUR_LIVE_SITE_URL](YOUR_LIVE_SITE_URL)
+**Live Demo:** [DEPLOYED SITE](https://pos-buzz-frontend-pranoy.vercel.app/)
 
-**Note:** Replace `YOUR_USERNAME`, `YOUR_LIVE_SITE_URL`, and other placeholder values with your actual information.
