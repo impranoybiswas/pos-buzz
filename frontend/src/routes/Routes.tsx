@@ -7,6 +7,8 @@ import ProfilePage from "../pages/Profile";
 import ProductsPage from "../pages/Products";
 import SalesPage from "../pages/Sales";
 import PrivateRoute from "./PrivateRoute";
+import AuthGuard from "./AuthGuard";
+import ErrorPage from "../pages/Error";
 
 export const router = createBrowserRouter([
   {
@@ -19,11 +21,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/login",
-        Component: LoginPage,
+        element: (
+          <AuthGuard>
+            <LoginPage />
+          </AuthGuard>
+        ),
       },
       {
         path: "/register",
-        Component: RegisterPage,
+        element: (
+          <AuthGuard>
+            <RegisterPage />
+          </AuthGuard>
+        ),
       },
       {
         path: "/profile",
@@ -50,5 +60,9 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    Component: ErrorPage,
   },
 ]);

@@ -178,32 +178,34 @@ export default function ProductsPage() {
             Manage your stock, SKUs, and pricing in one place.
           </Text>
         </div>
-        <div className="flex items-center gap-3">
-          <Button
-            icon={<ReloadOutlined />}
-            onClick={() => productsQuery.refetch()}
-          />
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={handleAdd}
-            size="large"
-            className="h-11 px-6 font-medium"
-          >
-            New Product
-          </Button>
-        </div>
+
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={handleAdd}
+          className="h-11 px-6 font-medium"
+          loading={createMutation.isPending}
+          disabled={createMutation.isPending}
+          size="large"
+        >
+          New Product
+        </Button>
       </div>
 
       {/* List & Search Container */}
       <Card bordered={false} className="shadow-sm">
-        <div className="mb-6 max-w-md">
+        <div className="mb-6 flex items-center justify-between gap-3">
           <Input
             placeholder="Search by name or SKU..."
             prefix={<SearchOutlined className="text-slate-400" />}
             onChange={(e) => setSearchText(e.target.value)}
-            className="h-11 rounded-xl"
+            className="h-8 rounded-xl"
             allowClear
+          />
+
+          <Button
+            icon={<ReloadOutlined />}
+            onClick={() => productsQuery.refetch()}
           />
         </div>
 
